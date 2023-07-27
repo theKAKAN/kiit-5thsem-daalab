@@ -11,7 +11,7 @@ int main(){
 
     printf("Prefix output: ");
     for( int i = 0; i < n; i++ ){
-        prefixArr[i] +=  i > 0 ? prefixArr[i-1] + arr[i] : arr[i];
+        prefixArr[i] =  i > 0 ? prefixArr[i-1] + arr[i] : arr[i];
         printf("%d ", prefixArr[i]);
     }
     printf("\n");
