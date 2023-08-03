@@ -24,13 +24,17 @@ int main(){
     printf("Enter %d integers now: ", n);
     for( int i = 0; i < n; i++ )
         scanf("%d", &arr[i]);
+    
+    int rot;
+    printf("Where to rotate to: ");
+    scanf("%d", &rot);
 
     
     printf("\nOriginal Array: ");
     for( int i = 0; i < n; i++ )
         printf("%d ", arr[i]);
     
-    ROTATE_RIGHT( arr, 5 );
+    ROTATE_RIGHT( arr, rot );
 
     printf("\nModified Array: ");
     for( int i = 0; i < n; i++ )
