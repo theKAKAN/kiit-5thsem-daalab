@@ -13,7 +13,7 @@ Number of comparisons: 3
 
 #include <stdio.h>
 
-int leftmostBinarySearch(int arr[], int size, int target, int *comparisons) {
+int binarySearch(int arr[], int size, int target, int *comparisons) {
     int left = 0, right = size - 1;
     int position = -1;  // Initialize position to -1 (not found)
 
@@ -23,7 +23,8 @@ int leftmostBinarySearch(int arr[], int size, int target, int *comparisons) {
 
         if (arr[mid] == target) {
             position = mid;
-            right = mid - 1;  // Continue searching to the left for the leftmost occurrence
+            // Search for leftmost
+            right = mid - 1;
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
@@ -52,7 +53,7 @@ int main() {
     printf("\n");
 
     int comparisons = 0;
-    int position = leftmostBinarySearch(arr, n, target, &comparisons);
+    int position = binarySearch(arr, n, target, &comparisons);
 
     if (position != -1) {
         printf("Element %d found at position %d\n", target, position);
