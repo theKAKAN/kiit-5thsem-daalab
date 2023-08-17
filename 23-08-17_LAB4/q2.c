@@ -1,79 +1,8 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-
-int partition(int elements[], int low, int high, int *comparisions);
-void swap(int *a, int *b);
-void quickSort(int elements[], int low, int high, int *comparisions);
-
-
-int main() {
-    int choice;
-    FILE *inputFile, *outputFile;
-    int elements[500]; 
-    int size;
-    int comparisons = 0;
-
-    while (1) {
-        printf("MAIN MENU (QUICK SORT)\n");
-        printf("1. Ascending Data\n");
-        printf("2. Descending Data\n");
-        printf("3. Random Data\n");
-        printf("4. EXIT\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        if (choice == 4) {
-            break;
-        }
-
-        switch (choice) {
-            case 1:
-                inputFile = fopen("inputAscending.txt", "r");
-                outputFile = fopen("outQuickAsce.txt", "w");
-                break;
-            case 2:
-                inputFile = fopen("inputDescending.txt", "r");
-                outputFile = fopen("outQuickDesc.txt", "w");
-                break;
-            case 3:
-                inputFile = fopen("inputRandom.txt", "r");
-                outputFile = fopen("outQuickRand.txt", "w");
-                break;
-            default:
-                printf("invalid choice entered\n");
-                continue;
-        }
-
-        if (inputFile == NULL || outputFile == NULL) {
-            printf("cant open file\n");
-            return 1;
-        }
-
-        size = 0;
-        while (fscanf(inputFile, "%d", &elements[size]) == 1) {
-            size++;
-        }
-
-        fclose(inputFile);
-
-        comparisons = 0;
-        quickSort(elements, 0, size - 1, &comparisons);
-
-        fprintf(outputFile, "Sorted elements:\n");
-        for (int i = 0; i < size; i++) {
-            fprintf(outputFile, "%d ", elements[i]);
-        }
-        fprintf(outputFile, "\nNumber of comparisons: %d\n", comparisons);
-
-        fclose(outputFile);
-
-        printf("Sorting completed.\n");
-    }
-
-    return 0;
-}
+#define MAX_READ 400
 
 void swap(int *a, int *b) {
     int temp = *a;
@@ -104,3 +33,94 @@ void quickSort(int elements[], int low, int high, int *comparisions) {
     }
 }
 
+
+
+
+void displayFileContent(char *filename) {
+    FILE *destFile = fopen(filename, "r");
+    if (destFile == NULL) {
+        printf("Error opening destination file for reading: %s\n", filename);
+        return;
+    }
+
+    char line[100];
+    while (fgets( line, sizeof(line), destFile) != NULL) {
+        printf("%s", line);
+    }
+
+    fclose(destFile);
+}
+
+int main() {
+    FILE *inputFile, *outputFile;
+    int elements[MAX_READ]; 
+    int choice, size, comparisons = 0;
+
+    while (1) {
+        printf("MAIN MENU (QUICK SORT)\n");
+        printf("\t1. Ascending Data\n");
+        printf("\t2. Descending Data\n");
+        printf("\t3. Random Data\n");
+        printf("\t4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 4) {
+            break;
+        }
+        // Read input from the common input files
+        switch (choice) {
+            case 1:
+                inputFile = fopen("q1_inAsc.dat", "r");
+                outputFile = fopen("q2_outAsc.dat", "w");
+                break;
+            case 2:
+                inputFile = fopen("q1_inDesc.dat", "r");
+                outputFile = fopen("q2_outDesc.dat", "w");
+                break;
+            case 3:
+                inputFile = fopen("q1_inRand.dat", "r");
+                outputFile = fopen("q2_outRand.dat", "w");
+                break;
+            default:
+                printf("invalid choice entered\n");
+                continue;
+        }
+
+        if (inputFile == NULL || outputFile == NULL) {
+            printf("cant open file\n");
+            return 1;
+        }
+
+        // Print the file
+        printf("Before sorting: ");
+        size = 0;
+        while( size < MAX_READ && fscanf(inputFile, "%d", &elements[size]) == 1 ) {
+            // Print the element
+            printf("%d ", elements[size]);
+            // Increase size after printing
+            size++;
+        }
+        fclose(inputFile);
+
+        comparisons = 0;
+        quickSort(elements, 0, size - 1, &comparisons);
+
+        // Print to terminal too
+        printf("\nAfter sorting: ");
+        fprintf(outputFile, "\nAfter sorting: ");
+        for (int i = 0; i < size; i++) {
+            fprintf(outputFile, "%d ", elements[i]);
+            printf("%d ", elements[i]);
+        }
+        fprintf(outputFile, "\nNumber of comparisons: %d\n", comparisons);
+        printf("\nNumber of comparisons: %d\n", comparisons);
+
+        fclose(outputFile);
+
+        
+        printf("\n");
+    }
+
+    return 0;
+}
