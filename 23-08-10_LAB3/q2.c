@@ -91,7 +91,16 @@ int main() {
     for (int i = 0; i < n; i++) {
         fprintf(outputFile, "%d ", arr[i]);
     }
-    fprintf(outputFile, "\nNumber of comparisons: %d", comparisons);
+    fprintf(outputFile, "\nNumber of comparisons: %d\n", comparisons);
+    if( comparisons == 0 ){
+        fprintf( outputFile, "Scenario: Best Case\n");
+    } 
+    else if( comparisons == (n*(n-1)/2) ){
+        fprintf(outputFile, "Scenario: Worst Case\n");
+    }
+    else {
+        fprintf(outputFile, "Scenario: Average Case\n");
+    }
     fclose(outputFile);
     
     // Read
