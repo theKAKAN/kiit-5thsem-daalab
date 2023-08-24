@@ -80,7 +80,7 @@ void insertPerson(struct person** arr, int* n) {
     createMinHeap(arr, *n);
 }
 
-void deleteOldestPerson(struct person** arr, int* n) {
+void delYoungestPerson(struct person** arr, int* n) {
     if (*n == 0) {
         printf("No data available.\n");
         return;
@@ -129,7 +129,7 @@ int main() {
 
         switch (option) {
             case 1:
-                printf("Reading from file.");
+                printf("Reading from file.\n");
                 FILE *inputFile = fopen("input.txt", "r");
                 int i = 0;
                 while( i < n ){
@@ -141,10 +141,9 @@ int main() {
                                 &arr[i]->height,
                                 &arr[i]->weight
                         );
-                    printf("Hello");
                     i++;
                 }
-                printf("Read %d inputs", i);
+                printf("Read %d inputs\n", i);
                 fclose(inputFile);
                 break;
             case 2:
@@ -160,7 +159,7 @@ int main() {
                 insertPerson(arr, &n);
                 break;
             case 6:
-                deleteOldestPerson(arr, &n);
+                delYoungestPerson(arr, &n);
                 break;
             case 7:
                 printf("Exiting...\n");
