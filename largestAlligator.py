@@ -1,7 +1,3 @@
-import heapq
-
-import heapq
-
 def largest_alligator(n, graph):
     """
     Returns the width of the largest alligator that can travel from pond 0 to pond n-1
